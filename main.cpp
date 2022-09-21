@@ -6,9 +6,9 @@
 #include <QVariantMap>
 #include <QFile>
 
-#include <QJson/Parser>
-#include <QJson/QObjectHelper>
-#include <QJson/Serializer>
+#include <qjson/include/QJson/Parser>
+#include <qjson/include/QJson/QObjectHelper>
+#include <qjson/include/QJson/Serializer>
 
 #include <person.h>
 
