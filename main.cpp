@@ -11,6 +11,7 @@
 #include <qjson/include/QJson/Serializer>
 
 #include <person.h>
+#include "TyHttpClient.h"
 
 using namespace QJson;
 
@@ -29,13 +30,13 @@ int main(int argc, char *argv[])
     Serializer serializer;
     serializer.setIndentMode(IndentMode::IndentFull);
     QByteArray json = serializer.serialize(map);
-    qDebug() << json;
+    qDebug().noquote() << json;
 
     // 修改对象值
     map["name"] = "NameChanged";
     map["phoneNumber"] = "18866666666";
     json = serializer.serialize(map);
-    qDebug() << json;
+    qDebug().noquote() << json;
 
     // 保存Json
     QFile fw("person.json");
@@ -56,6 +57,25 @@ int main(int argc, char *argv[])
     person dp;
     QObjectHelper::qvariant2qobject(variant.toMap(), &dp);
     qDebug() << dp.name() << dp.phoneNumber() << dp.gender() << dp.dob();
+
+    // HTTP GET
+    QString url1("http://localhost:9001/tablet/getdata");
+    HttpClient(url1)
+            .debug(true)
+            .param("lineName","TL1")
+            .param("clientType", 0)
+            .success([](const QString &response) {
+        qDebug().noquote() << response;
+    }).get();
+
+    // HTTP POST
+    QString url2("http://localhost:9001/scheduling/createTaskDynamicIP");
+    HttpClient(url2)
+            .debug(true)
+            .param("lineName","TL1")
+            .param("clientType", 0)
+            .success([](const QString &response) {qDebug().noquote() << response;})
+            .post();
 
     MainWindow w;
     w.show();

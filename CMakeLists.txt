@@ -23,7 +23,7 @@ add_subdirectory(qjson EXCLUDE_FROM_ALL)
 
 #find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 #find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Widgets Network REQUIRED)
 
 #set(PROJECT_SOURCES
 #        main.cpp
@@ -85,7 +85,7 @@ endif()
 
 target_link_libraries(JsonSample
 #    PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
-    PRIVATE Qt5::Widgets
+    PRIVATE Qt5::Widgets Qt5::Network
     PRIVATE qjson-qt5
 )
 
